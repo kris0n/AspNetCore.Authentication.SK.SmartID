@@ -1,0 +1,40 @@
+﻿@page
+@model SmartIdAuthenticationModel
+@{
+    ViewData["Title"] = "Smart-ID authentication";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (!string.IsNullOrEmpty(Model.VerificationCode))
+{
+    <p>Please enter in your Smart-ID app your PIN1, if you are sure that it displays the exact verification code as here.</p>
+    <p class="text-center">Verification code</p>
+    <p class="h4 text-center">@Model.VerificationCode</p>
+}
+else
+{
+    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <h4>Authenticate with Smart-ID.</h4>
+        <hr/>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-row">
+            <div class="form-group col-2">
+                <select asp-for="Input.CountryCode" class="custom-select mr-2">
+                    <option selected="" disabled="">Country</option>
+                    <option value="EE">EE</option>
+                    <option value="LV">LV</option>
+                    <option value="LT">LT</option>
+                </select>
+                <span asp-validation-for="Input.CountryCode" class="text-danger"></span>
+            </div>
+            <div class="form-group col-10">
+                <input asp-for="Input.NationalIdentityNumber" placeholder="National identity number" class="form-control"/>
+                <span asp-validation-for="Input.NationalIdentityNumber" class="text-danger"></span>
+            </div></div>
+        <button type="submit" class="btn btn-primary">Authenticate</button>
+    </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}}
