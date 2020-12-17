@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AspNetCore.Authentication.SK.Smart-Id\AspNetCore.Authentication.SK.Smart-Id.csproj" />
+    <ProjectReference Include="..\..\src\AspNetCore.Authentication.SK.SmartId\AspNetCore.Authentication.SK.SmartId.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

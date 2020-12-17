@@ -2,8 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <PackageId>AspNetCore.Authentication.SK.SmartId</PackageId>
+	  <Version>1.0.0-alpha1</Version>
+	  <Authors>kaupov</Authors>
+	  <Company>kaupov</Company>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <RootNamespace>AspNetCore.Authentication.SK.SmartId</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Product>AspNetCore.Authentication.SK.SmartId</Product>
   </PropertyGroup>
 
   <ItemGroup>
