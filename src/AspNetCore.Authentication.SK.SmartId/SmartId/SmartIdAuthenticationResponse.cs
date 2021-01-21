@@ -3,10 +3,10 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using AspNetCore.Authentication.SK.SmartId.SmartId.Rest.Dao;
+using AspNetCore.Authentication.SK.SmartID.SmartID.Rest.Dao;
 using Rfc2253;
 
-namespace AspNetCore.Authentication.SK.SmartId.SmartId
+namespace AspNetCore.Authentication.SK.SmartID.SmartID
 {
     public class SmartIdAuthenticationResponse
     {
@@ -114,6 +114,12 @@ namespace AspNetCore.Authentication.SK.SmartId.SmartId
                 "TIMEOUT" => Trouble.Timeout,
                 "DOCUMENT_UNUSABLE" => Trouble.DocumentUnusable,
                 "WRONG_VC" => Trouble.WrongVc,
+                "REQUIRED_INTERACTION_NOT_SUPPORTED_BY_APP" => Trouble.RequiredInteractionNotSupportedByApp,
+                "USER_REFUSED_CERT_CHOICE" => Trouble.UserRefusedCertChoice,
+                "USER_REFUSED_DISPLAYTEXTANDPIN" => Trouble.UserRefusedDisplayTextAndPin,
+                "USER_REFUSED_VC_CHOICE" => Trouble.UserRefusedVcChoice,
+                "USER_REFUSED_CONFIRMATIONMESSAGE" => Trouble.UserRefusedConfirmationMessage,
+                "USER_REFUSED_CONFIRMATIONMESSAGE_WITH_VC_CHOICE" => Trouble.UserRefusedConfirmationMessageWithVcChoice,
                 _ => Trouble.Unknown
             };
         }

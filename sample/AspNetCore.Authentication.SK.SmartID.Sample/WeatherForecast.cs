@@ -1,6 +1,6 @@
 using System;
 
-namespace AspNetCore.Authentication.SK.Sample
+namespace AspNetCore.Authentication.SK.SmartID.Sample
 {
     public class WeatherForecast
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AspNetCore.Authentication.SK.SmartId.SmartId
+namespace AspNetCore.Authentication.SK.SmartID.SmartID
 {
     public class SmartIdTroubleException : Exception
     {

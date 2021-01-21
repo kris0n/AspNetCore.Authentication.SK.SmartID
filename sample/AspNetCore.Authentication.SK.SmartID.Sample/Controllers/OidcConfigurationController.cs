@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace AspNetCore.Authentication.SK.Sample.Controllers
+namespace AspNetCore.Authentication.SK.SmartID.Sample.Controllers
 {
     public class OidcConfigurationController : Controller
     {

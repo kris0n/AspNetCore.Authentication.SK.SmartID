@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace AspNetCore.Authentication.SK.SmartId.SmartId
+namespace AspNetCore.Authentication.SK.SmartID.SmartID
 {
     public static class VerificationCodeCalculator
     {

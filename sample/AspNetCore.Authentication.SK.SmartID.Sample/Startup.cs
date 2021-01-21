@@ -1,6 +1,6 @@
-using AspNetCore.Authentication.SK.Sample.Data;
-using AspNetCore.Authentication.SK.Sample.Models;
-using AspNetCore.Authentication.SK.SmartId;
+using AspNetCore.Authentication.SK.SmartID.Sample.Data;
+using AspNetCore.Authentication.SK.SmartID.Sample.Models;
+using AspNetCore.Authentication.SK.SmartID.SmartID;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace AspNetCore.Authentication.SK.Sample
+namespace AspNetCore.Authentication.SK.SmartID.Sample
 {
     public class Startup
     {
@@ -40,9 +40,12 @@ namespace AspNetCore.Authentication.SK.Sample
             services.AddAuthentication()
                 .AddSmartId(SmartIdDefaults.DemoCertificatePublicKey, options =>
                 {
+                    const string displayText = "Smart-ID ASP.NET Core";
                     options.UseDemo();
-                    options.DisplayText = "Smart-ID ASP.NET Core";
-                    options.AskVerificationCodeChoice = true;
+                    options.AllowedInteractions.Add(
+                        new AllowedInteraction(AllowedInteractionType.VerificationCodeChoice, displayText));
+                    options.AllowedInteractions.Add(
+                        new AllowedInteraction(AllowedInteractionType.DisplayTextAndPin, displayText));
                 })
                 .AddIdentityServerJwt();
 

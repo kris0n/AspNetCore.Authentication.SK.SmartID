@@ -1,4 +1,4 @@
-﻿namespace AspNetCore.Authentication.SK.SmartId
+﻿namespace AspNetCore.Authentication.SK.SmartID
 {
     public static class SmartIdDefaults
     {
@@ -11,7 +11,7 @@
 
         internal const string DemoRelyingPartyUuid = "00000000-0000-0000-0000-000000000000";
         internal const string DemoRelyingPartyName = "DEMO";
-        internal const string DemoHostUrl = "https://sid.demo.sk.ee/smart-id-rp/v1/";
-        internal const string LiveHostUrl = "https://rp-api.smart-id.com/v1/";
+        internal const string DemoHostUrl = "https://sid.demo.sk.ee/smart-id-rp/v2/";
+        internal const string LiveHostUrl = "https://rp-api.smart-id.com/v2/";
     }
 }

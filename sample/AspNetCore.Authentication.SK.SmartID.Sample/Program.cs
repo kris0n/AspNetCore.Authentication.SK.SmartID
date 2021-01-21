@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AspNetCore.Authentication.SK.Sample
+namespace AspNetCore.Authentication.SK.SmartID.Sample
 {
     public class Program
     {

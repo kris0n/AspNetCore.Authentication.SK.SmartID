@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-	  <PackageId>AspNetCore.Authentication.SK.SmartId</PackageId>
+	  <PackageId>AspNetCore.Authentication.SK.SmartID</PackageId>
 	  <Version>1.0.0-alpha1</Version>
 	  <PackageDescription>SK Smart-ID external authentication for ASP.NET Core applications.</PackageDescription>
 	  <PackageTags>sk;smartid;smart-id;authentication</PackageTags>
@@ -11,9 +11,9 @@
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
 	  <PackageIcon>Smart-ID_login_btn_icon.png</PackageIcon>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-    <RootNamespace>AspNetCore.Authentication.SK.SmartId</RootNamespace>
+    <RootNamespace>AspNetCore.Authentication.SK.SmartID</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Product>AspNetCore.Authentication.SK.SmartId</Product>
+    <Product>AspNetCore.Authentication.SK.SmartID</Product>
     <RepositoryUrl>https://github.com/kaupov/AspNetCore.Authentication.SK</RepositoryUrl>
     <PackageProjectUrl>https://github.com/kaupov/AspNetCore.Authentication.SK</PackageProjectUrl>
   </PropertyGroup>

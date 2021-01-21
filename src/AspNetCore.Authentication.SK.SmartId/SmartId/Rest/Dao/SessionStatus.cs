@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AspNetCore.Authentication.SK.SmartId.SmartId.Rest.Dao
+namespace AspNetCore.Authentication.SK.SmartID.SmartID.Rest.Dao
 {
     public class SessionStatus
     {
@@ -13,5 +13,7 @@ namespace AspNetCore.Authentication.SK.SmartId.SmartId.Rest.Dao
         public SessionStatusCertificate Cert { get; set; }
 
         public List<string> IgnoredProperties { get; set; }
+
+        public string InteractionFlowUsed { get; set; }
     }
 }

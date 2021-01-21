@@ -1,4 +1,4 @@
-﻿namespace AspNetCore.Authentication.SK.SmartId.SmartId.Rest.Dao
+﻿namespace AspNetCore.Authentication.SK.SmartID.SmartID.Rest.Dao
 {
     public class SessionStatusSignature
     {

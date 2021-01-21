@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AspNetCore.Authentication.SK.SmartId.SmartId;
+using AspNetCore.Authentication.SK.SmartID.SmartID;
 using Xunit;
 
-namespace AspNetCore.Authentication.SK.SmartId.Tests
+namespace AspNetCore.Authentication.SK.SmartID.Tests
 {
     public class SmartIdClientShould
     {
@@ -43,7 +43,9 @@ namespace AspNetCore.Authentication.SK.SmartId.Tests
         public async Task ProcessAuthentication(string expectedResult, string countryCode, string nationalIdentityNumber,
             string nameIdentifier, string givenName, string surName)
         {
-            var session = await _smartIdClient.StartAuthenticationAsync(countryCode, nationalIdentityNumber);
+            var session = await _smartIdClient.StartAuthenticationAsync(countryCode, nationalIdentityNumber,
+                new List<AllowedInteraction>
+                    {new AllowedInteraction(AllowedInteractionType.DisplayTextAndPin, "Test")});
 
             Assert.NotNull(session);
             Assert.Equal(4, session.VerificationCode.Length);

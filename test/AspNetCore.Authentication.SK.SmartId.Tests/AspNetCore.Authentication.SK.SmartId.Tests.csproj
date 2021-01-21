@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>AspNetCore.Authentication.SK.SmartId.Tests</RootNamespace>
+    <RootNamespace>AspNetCore.Authentication.SK.SmartID.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\AspNetCore.Authentication.SK.SmartId\AspNetCore.Authentication.SK.SmartId.csproj" />
+    <ProjectReference Include="..\..\src\AspNetCore.Authentication.SK.SmartID\AspNetCore.Authentication.SK.SmartID.csproj" />
   </ItemGroup>
 
 </Project>

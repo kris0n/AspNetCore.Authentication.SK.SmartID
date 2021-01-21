@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AspNetCore.Authentication.SK.SmartId.Areas.Identity.Pages.Account
+namespace AspNetCore.Authentication.SK.SmartID.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class SmartIdAuthenticationModel : PageModel

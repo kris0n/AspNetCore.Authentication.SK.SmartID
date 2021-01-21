@@ -1,4 +1,4 @@
-﻿using AspNetCore.Authentication.SK.Sample.Models;
+﻿using AspNetCore.Authentication.SK.SmartID.Sample.Models;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AspNetCore.Authentication.SK.Sample.Data
+namespace AspNetCore.Authentication.SK.SmartID.Sample.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {

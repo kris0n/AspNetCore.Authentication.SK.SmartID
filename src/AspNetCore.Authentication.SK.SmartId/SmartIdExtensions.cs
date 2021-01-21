@@ -1,9 +1,9 @@
 ﻿using System;
-using AspNetCore.Authentication.SK.SmartId.SmartId;
+using AspNetCore.Authentication.SK.SmartID.SmartID;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AspNetCore.Authentication.SK.SmartId
+namespace AspNetCore.Authentication.SK.SmartID
 {
     public static class SmartIdExtensions
     {

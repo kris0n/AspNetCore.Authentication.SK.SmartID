@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Authentication.SK.SmartId", "src\AspNetCore.Authentication.SK.SmartId\AspNetCore.Authentication.SK.SmartId.csproj", "{3EE95201-F079-41D1-80C4-654869D8D90A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Authentication.SK.SmartID", "src\AspNetCore.Authentication.SK.SmartID\AspNetCore.Authentication.SK.SmartID.csproj", "{3EE95201-F079-41D1-80C4-654869D8D90A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Authentication.SK.SmartId.Tests", "test\AspNetCore.Authentication.SK.SmartId.Tests\AspNetCore.Authentication.SK.SmartId.Tests.csproj", "{097F232A-524F-4A1D-A169-F90A911A6437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Authentication.SK.SmartID.Tests", "test\AspNetCore.Authentication.SK.SmartID.Tests\AspNetCore.Authentication.SK.SmartID.Tests.csproj", "{097F232A-524F-4A1D-A169-F90A911A6437}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Authentication.SK.Sample", "sample\AspNetCore.Authentication.SK.Sample\AspNetCore.Authentication.SK.Sample.csproj", "{ED253330-CF54-448D-9131-9A1792E7DBAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Authentication.SK.SmartID.Sample", "sample\AspNetCore.Authentication.SK.SmartID.Sample\AspNetCore.Authentication.SK.SmartID.Sample.csproj", "{ED253330-CF54-448D-9131-9A1792E7DBAD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6273C3B6-3D80-440B-AE47-3CC942C61821}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

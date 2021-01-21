@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AspNetCore.Authentication.SK.Sample.Controllers
+namespace AspNetCore.Authentication.SK.SmartID.Sample.Controllers
 {
     [Authorize]
     [ApiController]

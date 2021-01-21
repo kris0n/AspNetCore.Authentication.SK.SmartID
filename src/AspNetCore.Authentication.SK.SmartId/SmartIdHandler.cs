@@ -3,13 +3,13 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using AspNetCore.Authentication.SK.SmartId.SmartId;
+using AspNetCore.Authentication.SK.SmartID.SmartID;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace AspNetCore.Authentication.SK.SmartId
+namespace AspNetCore.Authentication.SK.SmartID
 {
     public class SmartIdHandler : AuthenticationHandler<SmartIdOptions>
     {
@@ -28,18 +28,12 @@ namespace AspNetCore.Authentication.SK.SmartId
             _smartIdClient.RelyingPartyName = Options.RelyingPartyName;
             _smartIdClient.HostUrl = Options.HostUrl;
 
-            if (!string.IsNullOrEmpty(Options.DisplayText))
-                _smartIdClient.DisplayText = Options.DisplayText;
-
-            if (Options.AskVerificationCodeChoice)
-                _smartIdClient.AskVerificationCodeChoice = true;
-
             return base.InitializeHandlerAsync();
         }
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         protected override async Task HandleChallengeAsync(AuthenticationProperties properties)
@@ -70,7 +64,7 @@ namespace AspNetCore.Authentication.SK.SmartId
         {
             try
             {
-                var session = await _smartIdClient.StartAuthenticationAsync(countryCode, nationalIdentityNumber);
+                var session = await _smartIdClient.StartAuthenticationAsync(countryCode, nationalIdentityNumber, Options.AllowedInteractions);
 
                 Context.Response.Redirect(
                     $"./SmartIdAuthentication?handler=ShowVerificationCode&sessionId={session.Id}&verificationCode={session.VerificationCode}&hash={Uri.EscapeDataString(session.AuthenticationHashInBase64)}");

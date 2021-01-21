@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 
-namespace AspNetCore.Authentication.SK.SmartId.SmartId
+namespace AspNetCore.Authentication.SK.SmartID.SmartID
 {
     public class SmartIdHttpClientHandler : HttpClientHandler
     {
