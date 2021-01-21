@@ -14,8 +14,8 @@
     <RootNamespace>AspNetCore.Authentication.SK.SmartID</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Product>AspNetCore.Authentication.SK.SmartID</Product>
-    <RepositoryUrl>https://github.com/kaupov/AspNetCore.Authentication.SK</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/kaupov/AspNetCore.Authentication.SK</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/kaupov/AspNetCore.Authentication.SK.SmartID</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/kaupov/AspNetCore.Authentication.SK.SmartID</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
