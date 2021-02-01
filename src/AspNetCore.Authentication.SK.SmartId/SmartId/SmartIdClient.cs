@@ -13,13 +13,9 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
     public class SmartIdClient
     {
         private readonly HttpClient _httpClient;
-
-        public string RelyingPartyUuid { get; set; }
-
-        public string RelyingPartyName { get; set; }
-
-        public string HostUrl { get; set; }
-
+        
+        public SmartIdOptions Options { get; set; }
+        
         public SmartIdClient(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -28,7 +24,7 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
         public async Task<Session> StartAuthenticationAsync(string countryCode,
             string nationalIdentityNumber, List<AllowedInteraction> allowedInteractionsOrder)
         {
-            var uriBuilder = new UriBuilder(HostUrl);
+            var uriBuilder = new UriBuilder(Options.HostUrl);
             uriBuilder.Path += $"authentication/etsi/PNO{countryCode}-{nationalIdentityNumber}";
 
             var authenticationHash = AuthenticationHash.GenerateRandomHash();
@@ -67,7 +63,7 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
 
         public async Task<SmartIdAuthenticationResponse> CheckSessionAsync(string sessionId, string hash)
         {
-            var uriBuilder = new UriBuilder(HostUrl);
+            var uriBuilder = new UriBuilder(Options.HostUrl);
             uriBuilder.Path += $"session/{sessionId}";
 
             SessionStatus sessionStatus;
@@ -88,6 +84,9 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
 
             var smartIdAuthenticationResponse = new SmartIdAuthenticationResponse(sessionStatus, hash);
 
+            if (Options.HostUrl == SmartIdDefaults.DemoHostUrl && Options.SkipRevocationCheck)
+                smartIdAuthenticationResponse.SkipCertificateRevocationCheck();
+
             return smartIdAuthenticationResponse;
         }
 
@@ -95,7 +94,7 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
             List<AllowedInteraction> allowedInteractionsOrder)
         {
             var allowedInteraction = allowedInteractionsOrder.Select(CreateAllowedInteraction).ToList();
-            var request = new AuthenticationRequest(RelyingPartyUuid, RelyingPartyName, hash.HashInBase64(), "SHA512",
+            var request = new AuthenticationRequest(Options.RelyingPartyUUID, Options.RelyingPartyName, hash.HashInBase64(), "SHA512",
                 allowedInteraction);
 
             return request;

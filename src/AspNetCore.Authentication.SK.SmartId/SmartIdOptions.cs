@@ -15,11 +15,14 @@ namespace AspNetCore.Authentication.SK.SmartID
 
         public List<AllowedInteraction> AllowedInteractions { get; } = new List<AllowedInteraction>();
 
-        public SmartIdOptions UseDemo()
+        internal bool SkipRevocationCheck { get; private set; }
+
+        public SmartIdOptions UseDemo(bool skipRevocationCheck = false)
         {
             RelyingPartyUUID = SmartIdDefaults.DemoRelyingPartyUuid;
             RelyingPartyName = SmartIdDefaults.DemoRelyingPartyName;
             HostUrl = SmartIdDefaults.DemoHostUrl;
+            SkipRevocationCheck = skipRevocationCheck;
 
             return this;
         }

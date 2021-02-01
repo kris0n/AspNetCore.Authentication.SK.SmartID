@@ -28,14 +28,11 @@ namespace AspNetCore.Authentication.SK.SmartID.Tests
 
         public SmartIdClientShould()
         {
-            var smartIdOptions = new SmartIdOptions().UseDemo();
             _smartIdClient =
                 new SmartIdClient(
                     new HttpClient(new SmartIdHttpClientHandler(SmartIdDefaults.DemoCertificatePublicKey)))
                 {
-                    RelyingPartyUuid = smartIdOptions.RelyingPartyUUID,
-                    RelyingPartyName = smartIdOptions.RelyingPartyName,
-                    HostUrl = smartIdOptions.HostUrl
+                    Options = new SmartIdOptions().UseDemo()
                 };
         }
 

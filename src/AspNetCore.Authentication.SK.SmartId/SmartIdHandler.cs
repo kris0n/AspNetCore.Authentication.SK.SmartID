@@ -24,9 +24,7 @@ namespace AspNetCore.Authentication.SK.SmartID
 
         protected override Task InitializeHandlerAsync()
         {
-            _smartIdClient.RelyingPartyUuid = Options.RelyingPartyUUID;
-            _smartIdClient.RelyingPartyName = Options.RelyingPartyName;
-            _smartIdClient.HostUrl = Options.HostUrl;
+            _smartIdClient.Options = Options;
 
             return base.InitializeHandlerAsync();
         }

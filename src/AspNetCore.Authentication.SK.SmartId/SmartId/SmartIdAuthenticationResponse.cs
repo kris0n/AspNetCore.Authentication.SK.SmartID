@@ -13,7 +13,8 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
         private readonly string _signedHashInBase64;
         private readonly string _signatureValueInBase64;
         private readonly X509Certificate2 _certificate;
-        
+        private bool _skipRevocationCheck;
+
         public string EndResult { get; }
 
         public SmartIdAuthenticationResponse(SessionStatus sessionStatus, string signedHashInBase64)
@@ -82,7 +83,12 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
 
         private bool IsCertificateTrusted()
         {
-            return _certificate!.Verify();
+            var chain = new X509Chain();
+            
+            if (_skipRevocationCheck)
+                chain.ChainPolicy.RevocationMode = X509RevocationMode.NoCheck;
+            
+            return chain.Build(_certificate);
         }
 
         private bool VerifyCertificateExpiry()
@@ -122,6 +128,11 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
                 "USER_REFUSED_CONFIRMATIONMESSAGE_WITH_VC_CHOICE" => Trouble.UserRefusedConfirmationMessageWithVcChoice,
                 _ => Trouble.Unknown
             };
+        }
+
+        internal void SkipCertificateRevocationCheck()
+        {
+            _skipRevocationCheck = true;
         }
     }
 }
