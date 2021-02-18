@@ -38,10 +38,10 @@ namespace AspNetCore.Authentication.SK.SmartID.Sample
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAuthentication()
-                .AddSmartId(SmartIdDefaults.DemoCertificatePublicKey, options =>
+                .AddSmartId<ApplicationUser>(SmartIdDefaults.DemoCertificatePublicKey, options =>
                 {
                     const string displayText = "Smart-ID ASP.NET Core";
-                    options.UseDemo();
+                    options.UseDemo(true);
                     options.AllowedInteractions.Add(
                         new AllowedInteraction(AllowedInteractionType.VerificationCodeChoice, displayText));
                     options.AllowedInteractions.Add(

@@ -12,10 +12,13 @@ Add following lines to your `Startup` class:
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddAuthentication()
-        .AddSmartId(SmartIdDefaults.DemoCertificatePublicKey, options =>
+        .AddSmartId<ApplicationUser>(SmartIdDefaults.DemoCertificatePublicKey, options =>
             {
                 const string displayText = "Smart-ID ASP.NET Core";
-                options.UseDemo();
+                options.RelyingPartyUUID = Configuration["SmartID:RelyingPartyUUID"];
+                options.RelyingPartyName = Configuration["SmartID:RelyingPartyName"];
+                //options.UseDemo(true); // To use Smart-ID demo, use this.
+
                 options.AllowedInteractions.Add(
                     new AllowedInteraction(AllowedInteractionType.VerificationCodeChoice, displayText));
                 options.AllowedInteractions.Add(

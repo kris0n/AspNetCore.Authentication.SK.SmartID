@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Authentication;
+using AspNetCore.Authentication.SK.SmartID.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,6 +9,13 @@ namespace AspNetCore.Authentication.SK.SmartID.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class SmartIdAuthenticationModel : PageModel
     {
+        private readonly IAuthenticationPropertiesProvider _authenticationPropertiesProvider;
+
+        public SmartIdAuthenticationModel(IAuthenticationPropertiesProvider authenticationPropertiesProvider)
+        {
+            _authenticationPropertiesProvider = authenticationPropertiesProvider;
+        }
+
         [BindProperty]
         public InputModel Input { get; set; }
 
@@ -38,8 +45,7 @@ namespace AspNetCore.Authentication.SK.SmartID.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var properties = new AuthenticationProperties { RedirectUri = returnUrl };
-                properties.Items["LoginProvider"] = SmartIdDefaults.AuthenticationScheme;
+                var properties = _authenticationPropertiesProvider.ConfigureProperties(returnUrl, User);
                 properties.SetString("CountryCode", Input.CountryCode);
                 properties.SetString("NationalIdentityNumber", Input.NationalIdentityNumber);
                 
@@ -66,8 +72,7 @@ namespace AspNetCore.Authentication.SK.SmartID.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
 
-            var properties = new AuthenticationProperties { RedirectUri = returnUrl };
-            properties.Items["LoginProvider"] = SmartIdDefaults.AuthenticationScheme;
+            var properties = _authenticationPropertiesProvider.ConfigureProperties(returnUrl, User);
             properties.SetString("SessionId", sessionId);
             properties.SetString("Hash", hash);
 

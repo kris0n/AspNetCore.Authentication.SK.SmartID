@@ -36,6 +36,11 @@ namespace AspNetCore.Authentication.SK.SmartID
 
         protected override async Task HandleChallengeAsync(AuthenticationProperties properties)
         {
+            if (string.IsNullOrEmpty(properties.RedirectUri))
+            {
+                properties.RedirectUri = OriginalPathBase + OriginalPath + Request.QueryString;
+            }
+
             var sessionId = properties.GetString("SessionId");
             var hash = properties.GetString("Hash");
 
@@ -46,11 +51,11 @@ namespace AspNetCore.Authentication.SK.SmartID
 
                 if (string.IsNullOrEmpty(countryCode) || string.IsNullOrEmpty(nationalIdentityNumber))
                 {
-                    Context.Response.Redirect($"./SmartIdAuthentication");
+                    Context.Response.Redirect($"/Identity/Account/SmartIdAuthentication?returnUrl={UrlEncoder.Default.Encode(properties.RedirectUri)}");
                     return;
                 }
 
-                await StartAuthenticationAsync(countryCode, nationalIdentityNumber);
+                await StartAuthenticationAsync(countryCode, nationalIdentityNumber, properties.RedirectUri);
 
                 return;
             }
@@ -58,25 +63,25 @@ namespace AspNetCore.Authentication.SK.SmartID
             await CheckSessionAsync(sessionId, hash, properties);
         }
 
-        private async Task StartAuthenticationAsync(string countryCode, string nationalIdentityNumber)
+        private async Task StartAuthenticationAsync(string countryCode, string nationalIdentityNumber, string returnUrl)
         {
             try
             {
                 var session = await _smartIdClient.StartAuthenticationAsync(countryCode, nationalIdentityNumber, Options.AllowedInteractions);
 
                 Context.Response.Redirect(
-                    $"./SmartIdAuthentication?handler=ShowVerificationCode&sessionId={session.Id}&verificationCode={session.VerificationCode}&hash={Uri.EscapeDataString(session.AuthenticationHashInBase64)}");
+                    $"/Identity/Account/SmartIdAuthentication?handler=ShowVerificationCode&sessionId={session.Id}&verificationCode={session.VerificationCode}&hash={Uri.EscapeDataString(session.AuthenticationHashInBase64)}&returnUrl={UrlEncoder.Default.Encode(returnUrl)}");
             }
             catch (SmartIdTroubleException exception)
             {
                 Logger.LogError(exception,
                     $"Failed to start SmartId authentication, trouble {exception.Trouble} returned");
-                Context.Response.Redirect($"./ExternalLogin?handler=Callback&remoteError={exception.Trouble:G}");
+                Context.Response.Redirect($"/Identity/Account/ExternalLogin?handler=Callback&remoteError={exception.Trouble:G}");
             }
             catch (HttpRequestException exception)
             {
                 Logger.LogError(exception, "Failed to start SmartId authentication, invalid result returned");
-                Context.Response.Redirect($"./ExternalLogin?handler=Callback&remoteError={Trouble.Unknown:G}");
+                Context.Response.Redirect($"/Identity/Account/ExternalLogin?handler=Callback&remoteError={Trouble.Unknown:G}");
             }
         }
 
@@ -90,17 +95,17 @@ namespace AspNetCore.Authentication.SK.SmartID
 
                 await Context.SignInAsync(IdentityConstants.ExternalScheme,
                     new ClaimsPrincipal(sessionResult.GetIdentity()), properties);
-                Context.Response.Redirect("./ExternalLogin?handler=Callback");
+                Context.Response.Redirect(properties.RedirectUri);
             }
             catch (SmartIdTroubleException exception)
             {
                 Logger.LogError(exception, $"Failed to check SmartId session, trouble {exception.Trouble} returned");
-                Context.Response.Redirect($"./ExternalLogin?handler=Callback&remoteError={exception.Trouble:G}");
+                Context.Response.Redirect($"/Identity/Account/ExternalLogin?handler=Callback&remoteError={exception.Trouble:G}");
             }
             catch (HttpRequestException exception)
             {
                 Logger.LogError(exception, "Failed to check SmartId session, invalid results returned");
-                Context.Response.Redirect($"./ExternalLogin?handler=Callback&remoteError={Trouble.Unknown:G}");
+                Context.Response.Redirect($"/Identity/Account/ExternalLogin?handler=Callback&remoteError={Trouble.Unknown:G}");
             }
         }
     }
