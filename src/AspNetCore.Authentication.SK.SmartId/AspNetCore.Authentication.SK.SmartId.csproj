@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
 	  <PackageId>AspNetCore.Authentication.SK.SmartID</PackageId>
-	  <Version>1.0.0-alpha3</Version>
+	  <Version>1.0.0-alpha4</Version>
 	  <PackageDescription>SK Smart-ID external authentication for ASP.NET Core applications.</PackageDescription>
 	  <PackageTags>sk;smartid;smart-id;authentication</PackageTags>
 	  <Authors>kaupov</Authors>
