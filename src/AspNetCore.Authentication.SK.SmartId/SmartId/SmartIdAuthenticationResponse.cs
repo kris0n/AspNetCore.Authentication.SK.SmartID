@@ -14,6 +14,7 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
         private readonly string _signatureValueInBase64;
         private readonly X509Certificate2 _certificate;
         private bool _skipRevocationCheck;
+        private X509Certificate2Collection _x509ChainExtraStore;
 
         public string EndResult { get; }
 
@@ -87,7 +88,13 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
             
             if (_skipRevocationCheck)
                 chain.ChainPolicy.RevocationMode = X509RevocationMode.NoCheck;
-            
+
+            if (_x509ChainExtraStore != null)
+            {
+                chain.ChainPolicy.VerificationFlags = X509VerificationFlags.AllowUnknownCertificateAuthority;
+                chain.ChainPolicy.ExtraStore.AddRange(_x509ChainExtraStore);
+            }
+
             return chain.Build(_certificate);
         }
 
@@ -133,6 +140,11 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
         internal void SkipCertificateRevocationCheck()
         {
             _skipRevocationCheck = true;
+        }
+
+        internal void SetChainExtraStore(X509Certificate2Collection certStoreCertificates)
+        {
+            _x509ChainExtraStore = certStoreCertificates;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -86,6 +87,14 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
 
             if (Options.HostUrl == SmartIdDefaults.DemoHostUrl && Options.SkipRevocationCheck)
                 smartIdAuthenticationResponse.SkipCertificateRevocationCheck();
+
+            if (Options.LoadCertsFromMyStore)
+            {
+                using var certStore = new X509Store();
+                certStore.Open(OpenFlags.ReadOnly);
+
+                smartIdAuthenticationResponse.SetChainExtraStore(certStore.Certificates);
+            }
 
             return smartIdAuthenticationResponse;
         }

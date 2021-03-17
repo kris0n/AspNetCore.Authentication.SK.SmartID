@@ -11,12 +11,23 @@ namespace AspNetCore.Authentication.SK.SmartID
 
         public string RelyingPartyName { get; private set; }
 
-        public string HostUrl { get; private set; } = SmartIdDefaults.LiveHostUrl;
-
         public List<AllowedInteraction> AllowedInteractions { get; } = new List<AllowedInteraction>();
+
+        /// <summary>
+        /// Set to load user certificate validation chain certificates from CurrentUser/My store instead of using default system stores.
+        /// Strongly adviced to use only in environments where Trusted Root and Intermediate Certificate stores are not available, like in Azure App Service.
+        /// </summary>
+        public bool LoadCertsFromMyStore { get; set; }
+
+        internal string HostUrl { get; private set; } = SmartIdDefaults.LiveHostUrl;
 
         internal bool SkipRevocationCheck { get; private set; }
 
+        /// <summary>
+        /// Call this to use Smart-ID demo environment. Do not set RelyingPartyUUID or RelyingPartyName after calling this method.
+        /// </summary>
+        /// <param name="skipRevocationCheck">Pass true to work around revocation check failure due to faulty configuration in demo intermediate certificate.</param>
+        /// <returns>This options object.</returns>
         public SmartIdOptions UseDemo(bool skipRevocationCheck = false)
         {
             RelyingPartyUUID = SmartIdDefaults.DemoRelyingPartyUuid;
