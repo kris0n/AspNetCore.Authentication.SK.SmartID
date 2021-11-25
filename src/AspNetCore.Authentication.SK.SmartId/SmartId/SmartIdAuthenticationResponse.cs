@@ -17,6 +17,7 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
         private X509Certificate2Collection _x509ChainExtraStore;
 
         public string EndResult { get; }
+        public string DocumentNumber { get; }
 
         public SmartIdAuthenticationResponse(SessionStatus sessionStatus, string signedHashInBase64)
         {
@@ -24,6 +25,7 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
                 throw new ArgumentException("Result required", nameof(sessionStatus));
 
             EndResult = sessionStatus.Result.EndResult;
+            DocumentNumber = sessionStatus.Result.DocumentNumber;
             _signedHashInBase64 = signedHashInBase64;
             _signatureValueInBase64 = sessionStatus.Signature?.Value;
 

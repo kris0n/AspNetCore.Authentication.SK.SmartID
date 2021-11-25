@@ -62,6 +62,46 @@ namespace AspNetCore.Authentication.SK.SmartID.SmartID
                 authenticationHash.HashInBase64());
         }
 
+        public async Task<Session> StartSigningAsync(string countryCode,
+            string nationalIdentityNumber, List<AllowedInteraction> allowedInteractionsOrder, byte[] document)
+        {
+            var uriBuilder = new UriBuilder(Options.HostUrl);
+            uriBuilder.Path += $"signature/etsi/PNO{countryCode}-{nationalIdentityNumber}";
+
+            var signatureHash = SignatureHash.GetHash(document);
+            var authenticationRequest = CreateAuthenticationRequest(signatureHash, allowedInteractionsOrder);
+            var jsonString = JsonSerializer.Serialize(authenticationRequest,
+                new JsonSerializerOptions { IgnoreNullValues = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            var responseMessage = await _httpClient.PostAsync(uriBuilder.Uri, content);
+
+            switch ((int)responseMessage.StatusCode)
+            {
+                case (int)HttpStatusCode.Unauthorized:
+                    throw new SmartIdTroubleException(Trouble.InterfaceAuthenticationFailed);
+                case (int)HttpStatusCode.Forbidden:
+                    throw new SmartIdTroubleException(Trouble.NoPermissionToIssueRequest);
+                case (int)HttpStatusCode.NotFound:
+                    throw new SmartIdTroubleException(Trouble.UserDoesNotHaveAccountInSmartIdSystem);
+                case 471:
+                    throw new SmartIdTroubleException(Trouble
+                        .NoSuitableAccountOfRequestedTypeFoundButUserHasSomeOtherAccounts);
+                case 472:
+                    throw new SmartIdTroubleException(Trouble.PersonShouldViewSmartIdAppOrSmartIdSelfServicePortalNow);
+                case 480:
+                    throw new SmartIdTroubleException(Trouble.TheClientIsTooOldAndNotSupportedAnyMore);
+                case 580:
+                    throw new SmartIdTroubleException(Trouble.SystemIsUnderMaintenance);
+            }
+
+            responseMessage.EnsureSuccessStatusCode();
+
+            var responseString = await responseMessage.Content.ReadAsStringAsync();
+            var session = JsonSerializer.Deserialize<AuthenticationResponse>(responseString);
+            return new Session(session.SessionId, signatureHash.CalculateVerificationCode(),
+                signatureHash.HashInBase64());
+        }
+
         public async Task<SmartIdAuthenticationResponse> CheckSessionAsync(string sessionId, string hash)
         {
             var uriBuilder = new UriBuilder(Options.HostUrl);
